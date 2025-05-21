@@ -41,7 +41,12 @@ def get_synonyms(word):
     return{lemma.name().lower() for syn in wordnet.synsets(word) for lemma in syn.lemmas()}
 
 # Creamos la aplicación FastAPI, que sera el motor de nuestra API
-# Esto inicializa la API con una versión                                                                    
+# Esto inicializa la API con una versión
+app = FastAPI(title='mi aplicación de peliculas' , version='1.0.0')
+@app.get('/', tags=['Home'])
+def home():
+    # Cuando entremos en el navegador a http://127.0.0.1:8000 veremos un mensaje de Bienvenida
+    return HTMLResponse('<h1> Bienvenido a la API  de películas </h1>')
 
 
 
