@@ -72,7 +72,7 @@ def chatbot(query: str):
     synonyms = {word for q in query_words for word in get_synonyms(q)} | set(query_words) 
     
     # Filtramos la lista de peliculas buscando coinsidencias en la categoria 
-    results =[m for m in movies_list if any (s in m ['category'].lower() for s in synonyms)]
+    results =[m for m in movies_list if any (s in m['category'].lower() for s in synonyms)]
     
     # Si encontramos las peliculas, enviamos la lista de peliculas; sino, mostramos un mensaje de que no se encontraron coinsidencias
     
@@ -80,6 +80,14 @@ def chatbot(query: str):
         "respuesta": "aqui tienes algunas peliculas relacionadas." if results else "no encontre peliculas en esa categoria.",
         "peliculas": results 
     })
+    
+# Ruta para buscar películas por categoría específica
+    
+@app.get ('/movies/by_category/', tags=['Movies'])
+def get_movies_by_category(category: str):
+    # Filtramos la lista de películas según la categoría ingresada
+    return [m for m in movies_list if category.lower() in m['category'].lower()]
+    
 
 
 
